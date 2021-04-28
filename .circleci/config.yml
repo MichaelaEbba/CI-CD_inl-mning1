@@ -4,15 +4,19 @@ jobs:
     docker:
       - image: circleci/python:3.7
 
-    working-directory: ~/repo
+    working_directory: ~/repo
 
     steps:
+      # Step 1: obtain repo from GitHub
       - checkout
+      # Step 2: create virtual env and install dependencies
       - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt
-      - run:
-          name: Run tests
+          name: install dependencies
           command: |
-            flake8 --statistics
+            pip install -r requirements.txt
+      # Step 3: run linter and tests
+      - run:
+          name: run tests
+          command: |
+            flake8  --statistics
             pytest -v
